@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<div class="content">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Costo mínimo</title>
+        
+        <link rel="stylesheet" href="css/styles.css">
+        <script src="validarCantCostDeman.js"></script>
+        <script src="ingresarDatos.js"></script>
+        <script src="resolverProblema.js"></script>
+
+    </head>
+
+    <body>
+        
+
+        <h2>Indique el Numero De Origines Y De Rutas</h2>
+
+        <form>
+            <label for="origenes">Numero De Origenes:</label><br>
+            <input type="number" id="origenes" name="origenes" required><br><br>
+            <label for="rutas">Numero De Rutas:</label><br>
+            <input type="number" id="rutas" name="rutas" required><br><br>
+            <button type='button' onclick="validarCantCostDeman()">Crear</button>
+        </form>
+       
+        
+    </body>
+</div>
+
+</html>

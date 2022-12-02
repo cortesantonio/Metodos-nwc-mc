@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Multiplicadores</title>
+    <link rel="stylesheet" href="css/estilos.css" media="screen" title="no title" charset="utf-8">
+    <script type="text/javascript" src="metodo.js"></script>
+    <script type="text/javascript" src="noroeste.js"></script>
+</head>
+
+<body>
+    <div id="cabecera">Método de los Multiplicadores</div>
+    <br> <br>
+
+    <div class="contenedor">
+        <div id="cont">
+            <h2 style="font-family: cursive;">Configuración del problema</h2>
+            <ul class="list-group">
+                <li class="list-group-item" id="list-none">
+                    <label>Método (Factible)</label>
+                    <select id="metodos">
+                         <option value="voguel">Voguel</option>
+                         <option value="noroeste">Esquina Noroeste</option>
+                         <option value="costominimo">Costo Mínimo</option>
+                    </select>
+                </li><br>
+                <li class="list-group-item" id="list-none">
+                    <label>Número de Filas</label>
+                    <input type="number" id="fila" required="True" value="3">
+                    <label>Número de Columnas</label>
+                    <input type="number" id="columna"  required="True" value="5">
+                    <button type="button" class="btn btn-success" id = "btnrestriccion" onclick="crearMatriz();">Aceptar</button>
+                </li>
+                <li id="list-none">
+                    <br>
+                    <div class="marcoCaptura" id="capturas">
+
+                    </div>
+                </li>
+                <li class="list-group-item" id="list-none">
+                    <div class="dibujo-canvas" id="resultado">
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>

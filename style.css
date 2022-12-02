@@ -1,0 +1,129 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    height: 100vh;
+
+}
+
+hr {
+    margin: 7px 0px 15px 0px;
+}
+
+.contenerdormodal {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.306);
+
+}
+
+.modal {
+    margin: auto;
+    padding: 20px;
+    width: 400px;
+    background-color: rgb(255, 255, 255);
+
+}
+
+.modal label,
+button {
+    display: block;
+
+}
+
+.modal input {
+    width: 100%;
+    margin-bottom: 10PX;
+    padding: 5px;
+    border: none;
+    border-bottom: 1px solid gray;
+    box-sizing: border-box;
+
+}
+
+.modal button {
+    margin: auto;
+    width: 50%;
+    padding: 5px;
+    background-color: blue;
+    color: white;
+    border: none;
+
+}
+
+main {
+    padding: 25px;
+}
+
+.recuadros {
+    text-align: center;
+}
+
+.recuadros input {
+    width: 47%;
+    height: 35px;
+    margin: auto;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    box-sizing: border-box;
+    text-align: center;
+}
+
+table td {
+    background-color: white;
+}
+
+.recuadros input::placeholder {
+    text-align: center;
+}
+
+table {
+    width: 80%;
+    background-color: blue;
+    margin: 20px auto;
+    color: white;
+}
+
+.metodos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: auto;
+    width: 80%;
+    text-align: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.metodos>button {
+    padding: 4px;
+    background-color: blue;
+    color: white;
+    border: none;
+}
+.contenerdormodal #closeBtn{
+    background-color: transparent;
+    color: black;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+@media screen and (max-width:770px) {
+    table{
+        height: 120%;
+    }
+}
+
+.ultimaHilera{
+    background-color: white;
+    color:  black;
+}

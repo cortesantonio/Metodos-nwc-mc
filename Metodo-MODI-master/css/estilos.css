@@ -1,0 +1,90 @@
+body {
+    background-color: #F8F8FF;
+}
+
+#cabecera {
+    width: 100%;
+    padding: 15px 0 15px 0;
+    text-align: center;
+    font-size: 30px;
+    font-family: cursive;
+}
+
+#boton {
+    border: 1px solid #D3D3D3;
+    padding: 8px;
+}
+
+#cont {
+    border: 1px solid #D3D3D3;
+    padding: 8px;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+#restriccion {
+    margin-left: 5%;
+}
+
+label {
+    font-family: cursive;
+    font-size: 13px;
+}
+
+#list-none {
+    list-style: none;
+}
+
+#tabla-voguel {
+    border: 1px solid black;
+}
+
+.superiores {
+    border: 1px solid black;
+    width: 100px;
+    text-align: center;
+}
+
+table > tr > td >td {
+    background-color: red;
+    border: 1px solid red;
+}
+
+.basicas {
+    background-color: red;
+    border: 1px solid red;
+    width: 100px;
+}
+
+.basicas-no {
+    background-color: blue;
+    border: 1px solid blue;
+    width: 100px;
+}
+
+.var-entra {
+    background-color: green;
+    border: 1px solid green;
+    width: 100px;
+}
+
+.horizontales {
+    width: 100px;
+    text-align: center;
+    border: 1px solid black;
+    padding:
+
+}
+
+#tabla-horizontales,#tabla-multiplicadores {
+    border: 1px solid black;
+}
+
+#celdas {
+    border: 1px solid black;
+    text-align: center;
+}
+
+#tabla-final {
+    border: 1px solid black;
+}

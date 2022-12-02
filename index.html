@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="contenerdormodal" id="contenerdormodal">
+        <div id="modal" class="modal">
+
+            <div style="display: flex;justify-content: space-between;">
+                <h2>Ingrese los Datos.</h2>
+                <p>
+                    <button id="closeBtn" onclick="closeModal()"> x </button>
+                </p>
+            </div>
+            <hr>
+            <label for="">Numero de Fabricas</label>
+            <input type="number" placeholder="min: 2 / max:8" name="" id="xfabrica">
+            <label for="">Numero de Bodegas</label>
+            <input type="number" placeholder="min: 2 / max:8" min="2" max="8" name="" id="ybodega">
+
+            <button onclick="generar_tabla()">Generar Tabla</button>
+            <button onclick="tabla_aleatoria()">Tabla  Random</button>
+        </div>
+    </div>
+    <main>
+        <h2>Tabla de minimización de costos.</h2>
+        <hr>
+        <table id="tabla">
+            <tbody>
+                <tr>
+                    <th colspan="2">A</th>
+                    <th>B</th>
+                    <th>C</th>
+                </tr>
+                <tr>
+                    <th>1</th>
+                    <td class="recuadros"><input placeholder="$" min="0" type="number"> <input placeholder="C" min="0"
+                            type="number"></td>
+                    <td class="recuadros"><input placeholder="$" min="0" type="number"> <input placeholder="C" min="0"
+                            type="number"></td>
+                    <td class="recuadros"><input placeholder="$" min="0" type="number"> <input placeholder="C" min="0"
+                            type="number"></td>
+                </tr>
+                <tr>
+                    <th>2</th>
+                    <td class="recuadros"><input placeholder="$" min="0" type="number"> <input placeholder="C" min="0"
+                            type="number"></td>
+                    <td class="recuadros"><input placeholder="$" min="0" type="number"> <input placeholder="C" min="0"
+                            type="number"></td>
+                    <td class="recuadros"><input placeholder="$" min="0" type="number"> <input placeholder="C" min="0"
+                            type="number"></td>
+                </tr>
+                <tr>
+                    <th>3</th>
+                    <td class="recuadros"><input placeholder="$" min="0" type="number"> <input placeholder="C" min="0"
+                            type="number"></td>
+                    <td class="recuadros"><input placeholder="$" min="0" type="number"> <input placeholder="C" min="0"
+                            type="number"></td>
+                    <td class="recuadros"><input placeholder="$" min="0" type="number"> <input placeholder="C" min="0"
+                            type="number"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="metodos">
+            <button>Random</button>
+            <button>Metodo NWC</button>
+            <button>Método de los mínimos costos</button>
+            <button>Método de Vogel</button>
+            <button>Limpiar</button>
+            <button onclick="newTable()">Nueva Tabla</button>
+        </div>
+    </main>
+    <script src="main.js"></script>
+
+</body>
+
+</html>
