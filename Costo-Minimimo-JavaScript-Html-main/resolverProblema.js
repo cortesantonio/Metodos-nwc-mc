@@ -30,7 +30,7 @@ function resolverProblema() {
             costos[i][j] = parseInt(document.getElementById("costo" + idValores).value);
         }
     }
-    
+
     // Hasta este punto ya vale lo que vale origenes * rutas.
     // Por alguna razon afecta a todo el codigo
     // Por esa razon aqui volvemos a inicializar en 0 y asi en todo el codigo.
@@ -52,36 +52,75 @@ function resolverProblema() {
 
     }
 
-        // Inicialozamos en 0 estos arreglos
+    // Inicialozamos en 0 estos arreglos
+    for (i = 0; i < origenes; i++) {
+
+        rf[i] = 0;
+    }
+
+    for (i = 0; i < rutas; i++) {
+
+        cf[i] = 0;
+    }
+
+    //Igualamos estos valores para no tocar a los originales
+    var origenes2 = origenes;
+    var rutas2 = rutas;
+
+    while (origenes2 > 0 && rutas2 > 0) {
+
+        min = 1000;
+
         for (i = 0; i < origenes; i++) {
 
-            rf[i] = 0;
+            if (rf[i] != 1) {
+
+                for (j = 0; j < rutas; j++) {
+
+                    if (cf[j] != 1) {
+
+                        if (min > costos[i][j]) {
+
+                            min = costos[i][j];
+                            p = i;
+                            q = j;
+                        }
+                    }
+                }
+            }
         }
 
-        for (i = 0; i < rutas; i++) {
+        if (oferta[p] < demanda[q]) {
 
-            cf[i] = 0;
+            c1 = oferta[p];
+        }
+        else {
+
+            c1 = demanda[q];
         }
 
-        //Igualamos estos valores para no tocar a los originales
-        var origenes2 = origenes;
-        var rutas2 = rutas;
+        for (i = 0; i < origenes; i++) {
 
-        while (origenes2 > 0 && rutas2 > 0) {
+            if (rf[i] != 1) {
 
-            min = 1000;
+                for (j = 0; j < rutas; j++) {
 
-            for (i = 0; i < origenes; i++) {
+                    if (cf[j] != 1) {
 
-                if (rf[i] != 1) {
+                        if (min == costos[i][j]) {
 
-                    for (j = 0; j < rutas; j++) {
+                            if (oferta[i] < demanda[j]) {
 
-                        if (cf[j] != 1) {
+                                c2 = oferta[i];
+                            }
+                            else {
 
-                            if (min > costos[i][j]) {
+                                c2 = demanda[j];
+                            }
 
-                                min = costos[i][j];
+                            if (c2 > c1) {
+
+                                c1 = c2;
                                 p = i;
                                 q = j;
                             }
@@ -89,74 +128,35 @@ function resolverProblema() {
                     }
                 }
             }
-
-            if (oferta[p] < demanda[q]) {
-
-                c1 = oferta[p];
-            }
-            else {
-
-                c1 = demanda[q];
-            }
-
-            for (i = 0; i < origenes; i++) {
-
-                if (rf[i] != 1) {
-
-                    for (j = 0; j < rutas; j++) {
-
-                        if (cf[j] != 1) {
-
-                            if (min == costos[i][j]) {
-
-                                if (oferta[i] < demanda[j]) {
-
-                                    c2 = oferta[i];
-                                }
-                                else {
-
-                                    c2 = demanda[j];
-                                }
-
-                                if (c2 > c1) {
-
-                                    c1 = c2;
-                                    p = i;
-                                    q = j;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            if (oferta[p] < demanda[q]) {
-
-                sum += costos[p][q] * oferta[p];
-                demanda[q] -= oferta[p];
-                rf[p] = 1;
-                origenes2--;
-            }
-            else if (oferta[p] > demanda[q]) {
-
-                sum = sum + costos[p][q] * demanda[q];
-                oferta[p] -= demanda[q];
-                cf[q] = 1;
-                rutas2--;
-            }
-            else if (oferta[p] == demanda[q]) {
-
-                sum = sum + costos[p][q] * oferta[p];
-                rf[p] = 1;
-                cf[q] = 1;
-
-                origenes2--;
-                rutas2--;
-            }
         }
+        if (oferta[p] < demanda[q]) {
 
-        document.write("<br>");
-        document.write("<br>");
-        document.write("El costo Minimo es: " + sum);
-        console.log(sum);
+            sum += costos[p][q] * oferta[p];
+            demanda[q] -= oferta[p];
+            rf[p] = 1;
+            origenes2--;
+        }
+        else if (oferta[p] > demanda[q]) {
 
+            sum = sum + costos[p][q] * demanda[q];
+            oferta[p] -= demanda[q];
+            cf[q] = 1;
+            rutas2--;
+        }
+        else if (oferta[p] == demanda[q]) {
+
+            sum = sum + costos[p][q] * oferta[p];
+            rf[p] = 1;
+            cf[q] = 1;
+
+            origenes2--;
+            rutas2--;
+        }
     }
+
+    document.write("<br>");
+    document.write("<br>");
+    document.write("El costo Minimo es: " + sum);
+    console.log(sum);
+
+}
