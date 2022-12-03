@@ -178,7 +178,7 @@ function algoritmoEsquina(tabla) {
 
 
 
-
+// Metodo minimo costo, falta adaptar para la toma de datos de la tabla.
 function resolverProblema() {
   // Accedemos a las variables globales
   var origenes = window.origenes;
