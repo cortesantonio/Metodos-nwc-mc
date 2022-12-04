@@ -22,8 +22,9 @@
             </div>
             <hr>
             <form name="datos" id="form1" action="index.html" method="post">
-                Bodegas: <input type="text" name="filas" id="fil" />
-                Fabricas: <input type="text" name="columnas" id="col" />
+                <br>
+                Bodegas: <input type="number" name="filas" min="2" max="8" id="fil" placeholder="min: 2 max: 8" />
+                Fabricas: <input type="number" name="columnas" min="2" max="8" id="col"  placeholder="min: 2 max: 8"/>
             </form>
 
             <button onclick="generarTabla()">Crear Tabla</button>
@@ -40,16 +41,17 @@
         <div id="mainTabla"></div>
 
         <div class="metodos">
-            <button onclick="equilibrarTabla()">Equilibrar Tabla</button>
-            <button onclick="resuelve()">Metodo NWC</button>
-            <button>Método de los mínimos costos</button>
+            <button onclick="metodoNwc()">Metodo NWC</button>
+            <button onclick="metodoMC()">Método de los mínimos costos</button>
             <button onclick="newTable()">Nueva Tabla</button>
         </div>
     </div>
     <div id="resultado"></div>
+    <div id="resultado2"></div>
     
 
     <script src="main.js"></script>
+    <script src="mc.js"></script>
 </body>
 
 </html>

@@ -1,51 +1,63 @@
+window.eq = false;
+
+
 const generarTabla = () => {
   var bodegas = parseInt(document.getElementById('fil').value);
   var fabricas = parseInt(document.getElementById('col').value);
   var main = document.getElementById("mainTabla");
   var tabla = document.getElementById("tabla")
+  const abc = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+
   if (tabla != null) {
     tabla.parentNode.removeChild(tabla);
   }
-
-  var formu = document.createElement("form");
-  formu.setAttribute("id", "tabla");
-  var tabla = document.createElement("table");
-  var tblBody = document.createElement("tbody");
+  if (bodegas >= 2 && fabricas >= 2 && bodegas <= 8 && fabricas <= 8) {
 
 
-  for (var i = 0; i <= bodegas + 1; i++) {
-    var filas = document.createElement("tr");
-    for (var j = 0; j <= fabricas + 1; j++) {
-      var columnas = document.createElement("td");
-      if (i == 0 && j > 0 && j <= fabricas) {
-        var textoCelda1 = document.createTextNode("Fabrica " + j);
-        columnas.appendChild(textoCelda1);
+    var formu = document.createElement("form");
+    formu.setAttribute("id", "tabla");
+    var tabla = document.createElement("table");
+    var tblBody = document.createElement("tbody");
 
-      } else if (j == 0 && i > 0 && i <= bodegas) {
-        var textoCelda2 = document.createTextNode("Bodega " + i);
-        columnas.appendChild(textoCelda2);
+    for (var i = 0; i <= bodegas + 1; i++) {
+      var filas = document.createElement("tr");
+      for (var j = 0; j <= fabricas + 1; j++) {
+        var columnas = document.createElement("td");
+        if (i == 0 && j > 0 && j <= fabricas) {
+          var textoCelda1 = document.createTextNode("Fabrica " + abc[j - 1]);
+          columnas.appendChild(textoCelda1);
 
-      } else if (j > 0 && i > 0 && (i != bodegas + 1 || j != fabricas + 1)) {
-        var textoCelda3 = document.createElement("input");
-        textoCelda3.setAttribute("id", "t".concat(i.toString(), "_", j.toString()));
-        columnas.appendChild(textoCelda3);
+        } else if (j == 0 && i > 0 && i <= bodegas) {
+          var textoCelda2 = document.createTextNode("Bodega " + i);
+          columnas.appendChild(textoCelda2);
 
+        } else if (j > 0 && i > 0 && (i != bodegas + 1 || j != fabricas + 1)) {
+          var textoCelda3 = document.createElement("input");
+          textoCelda3.setAttribute("id", "t".concat(i.toString(), "_", j.toString()));
+          columnas.appendChild(textoCelda3);
+
+        }
+        filas.appendChild(columnas);
       }
-      filas.appendChild(columnas);
+      tblBody.appendChild(filas);
     }
-    tblBody.appendChild(filas);
+
+    tabla.appendChild(tblBody);
+    formu.appendChild(tabla);
+    main.appendChild(formu);
+
+    const modal = document.getElementById('contenerdormodal');
+    modal.style.display = 'none';
+    window.eq = false;
+
+  } else {
+    alert('Valores ingresados no estan dentro de los parametros')
+    location.reload()
+    window.eq = true;
+
   }
 
-  tabla.appendChild(tblBody);
-  formu.appendChild(tabla);
-  main.appendChild(formu);
-
-  const modal = document.getElementById('contenerdormodal');
-  modal.style.display = 'none';
-
 }
-
-
 
 const newTable = () => {
   // Manipulacion de modal para editar tabla actual.
@@ -59,56 +71,87 @@ const closeModal = () => {
   modal.style.display = 'none';
 };
 
+
 const equilibrarTabla = () => {
-  var bodegas = parseInt(document.getElementById('fil').value); // col -> vertical
-  var fabricas = parseInt(document.getElementById('col').value); // fil -> horizontal
-  let sumCol = 0;
-  let sumFil = 0;
-  var col = new Array();
-  var fil = new Array();
+  if(!window.eq){
+    var bodegas = parseInt(document.getElementById('fil').value);
+    var fabricas = parseInt(document.getElementById('col').value);
+    let sumCol = 0;
+    let sumFil = 0;
+    var col = new Array();
+    var fil = new Array();
+  
+    for (let x = 1; x <= fabricas; x++) {
+      col[x - 1] = parseInt(document.getElementById("t".concat((bodegas + 1), "_", x)).value);
+    }
+    for (let x = 1; x <= bodegas; x++) {
+      fil[x - 1] = parseInt(document.getElementById("t".concat((x), "_", fabricas + 1)).value);
+    }
+  
+    for (let i = 0; i < col.length; i++) {
+      sumCol += col[i];
+    }
+    for (let i = 0; i < fil.length; i++) {
+      sumFil += fil[i];
+    }
+  
+    if (sumCol == sumFil) {
+      alert('Problema ya equilibrado');
+      window.eq = true;
 
-  for (let x = 1; x <= fabricas; x++) {
-    col[x - 1] = parseInt(document.getElementById("t".concat((bodegas + 1), "_", x)).value);
-  }
-  for (let x = 1; x <= bodegas; x++) {
-    fil[x - 1] = parseInt(document.getElementById("t".concat((x), "_", fabricas + 1)).value);
-  }
+    } else {
+  
+      if (sumCol > sumFil) {
+        tabla = document.getElementsByTagName("tbody")[0];
+        var tr = document.createElement('tr')
+  
+        for (let x = 0; x <= fabricas + 1; x++) {
+          if (x == fabricas + 1) {
+            var td = document.createElement("td");
+            td.innerHTML = `<input value=${sumCol - sumFil} />`
+            tr.appendChild(td)
+          } else if (x == 0) {
+            var td = document.createElement("td");
+            td.innerHTML = ''
+            tr.appendChild(td)
+          } else {
+            var td = document.createElement("td");
+            td.innerHTML = '<input value=0 />'
+            tr.appendChild(td)
+          }
+  
+        }
+        tabla.insertBefore(tr, tabla.children[bodegas + 1])
+        window.eq = true;
 
-  for (let i = 0; i < col.length; i++) {
-    sumCol += col[i];
-  }
-  for (let i = 0; i < fil.length; i++) {
-    sumFil += fil[i];
-  }
-
-  if (sumCol == sumFil) {
-    alert('tabla equilibrada')
-  } else {
-
-    if (sumCol>sumFil)
-    {
-      //agregar fil
-      tabla = document.getElementById('tabla');
-      for(let y = 0; y >5; y++){
-        console.log(tabla[y])
       }
+      else if (sumFil > sumCol) {
+  
+        fila = document.getElementsByTagName("tr");
+  
+        for (let x = 1; x < fila.length; x++) {
+  
+          if (x == fila.length - 1) {
+            td = document.createElement('td');
+            td.innerHTML = `<input value=${sumFil - sumCol} />`;
+            fila[x].insertBefore(td, fila[x].children[fabricas + 1])
+          } else {
+            td = document.createElement('td');
+            td.innerHTML = '<input value=0 />';
+            fila[x].insertBefore(td, fila[x].children[fabricas + 1])
+          }
+        }
+        window.eq = true;
+
+      }
+  
     }
-    else if (sumFil> sumCol){
-      //agregar col
-
-    }
-
-
-
-
   }
-
-
-
+  
 }
 
-const resuelve = () => {
-  const resultadoGUI = document.getElementById('resultado');
+const metodoNwc = () => {
+  const resultadoGUI = document.getElementById('resultado2');
   var tabla = new Array();
   var bodegas = parseInt(document.getElementById('fil').value);
   var fabricas = parseInt(document.getElementById('col').value);
@@ -123,12 +166,12 @@ const resuelve = () => {
     tabla[i - 1] = col;
   }
 
-  var resultado = algoritmoEsquina(tabla);
-  resultadoGUI.innerHTML = 'Metodo NWC: ' + resultado
+  var resultado = nwc(tabla);
+  resultadoGUI.innerHTML = 'Metodo NWC: ' + resultado;
+  setTimeout(equilibrarTabla, 50);
 }
 
-
-function algoritmoEsquina(tabla) {
+const nwc = (tabla) =>{
   var res = new Array();
   var res1 = new Array();
   var res2 = new Array();
@@ -143,201 +186,47 @@ function algoritmoEsquina(tabla) {
     es = tabla[i][i];
     dem = tabla[i][tabla[i].length - 1];
     offer = tabla[tabla.length - 1][i];
+
     if (dem > offer) {
+
       res1[j] = es;
       res2[j] = offer;
       res[j] = es * offer;
       tabla[i][tabla[i].length - 1] -= offer;
+
       for (var z = 0; z < tabla.length; z++) {
         tabla[z].splice(0, 1);
       }
+
     } else if (dem < offer) {
+
       res1[j] = es;
       res2[j] = dem;
       res[j] = es * dem;
       tabla[tabla.length - 1][i] -= dem;
       tabla.splice(0, 1);
+
     } else {
+
       res[j] = es * dem;
       res1[j] = es;
       res2[j] = dem;
       tabla.splice(0, 1);
       for (var z = 0; z < tabla.length; z++) {
         tabla[z].splice(0, 1);
+
       }
     }
     j++;
   }
+
   for (var k = 0; k < res.length; k++) {
     resultado += res[k];
+
   }
+
   return resultado;
 }
 
 
 
-
-
-// Metodo minimo costo, falta adaptar para la toma de datos de la tabla.
-function resolverProblema() {
-  // Accedemos a las variables globales
-  var origenes = window.origenes;
-  var rutas = window.rutas;
-
-  // Declaramos todas las variables a usar
-  var costos = [];
-  var demanda = [];
-  var oferta = [];
-  var rf = [];
-  var cf = [];
-  var sum = 0;
-  var c2 = 0;
-  var c1 = 0;
-  var p = 0;
-  var q = 0;
-  var i = 0;
-  var j = 0;
-
-  // Esta variable es para usarla como ID para obtener los valores (costos, demandas, ofertas) y va de 1 en 1
-  // Trabajamos los costos como costo1, costo2... Las demandas como demanda1, demanda2... Las ofertas como oferta1, oferta2....
-  var idValores = 0;
-
-  // Covertimos el arreglo costos que es 1 dimension a uno de 2 dimenciones
-  for (i = 0; i < 5; i++) costos[i] = [];
-  // Accedemos a los costos ingresados anteriormente
-  for (i = 0; i < origenes; i++) {
-    for (j = 0; j < rutas; j++) {
-      idValores++;
-      costos[i][j] = parseInt(document.getElementById("costo" + idValores).value);
-    }
-  }
-
-  // Hasta este punto ya vale lo que vale origenes * rutas.
-  // Por alguna razon afecta a todo el codigo
-  // Por esa razon aqui volvemos a inicializar en 0 y asi en todo el codigo.
-  idValores = 0;
-
-  // Accedemos a las ofertas ingresadas anteriormente
-  for (i = 0; i < origenes; i++) {
-    idValores++;
-    oferta[i] = parseInt(document.getElementById("oferta" + idValores).value);
-
-  }
-
-  idValores = 0;
-
-  // Accedemos a las demandas ingresadas anteriormente
-  for (i = 0; i < rutas; i++) {
-    idValores++;
-    demanda[i] = parseInt(document.getElementById("demanda" + idValores).value);
-
-  }
-
-  // Inicialozamos en 0 estos arreglos
-  for (i = 0; i < origenes; i++) {
-
-    rf[i] = 0;
-  }
-
-  for (i = 0; i < rutas; i++) {
-
-    cf[i] = 0;
-  }
-
-  //Igualamos estos valores para no tocar a los originales
-  var origenes2 = origenes;
-  var rutas2 = rutas;
-
-  while (origenes2 > 0 && rutas2 > 0) {
-
-    min = 1000;
-
-    for (i = 0; i < origenes; i++) {
-
-      if (rf[i] != 1) {
-
-        for (j = 0; j < rutas; j++) {
-
-          if (cf[j] != 1) {
-
-            if (min > costos[i][j]) {
-
-              min = costos[i][j];
-              p = i;
-              q = j;
-            }
-          }
-        }
-      }
-    }
-
-    if (oferta[p] < demanda[q]) {
-
-      c1 = oferta[p];
-    }
-    else {
-
-      c1 = demanda[q];
-    }
-
-    for (i = 0; i < origenes; i++) {
-
-      if (rf[i] != 1) {
-
-        for (j = 0; j < rutas; j++) {
-
-          if (cf[j] != 1) {
-
-            if (min == costos[i][j]) {
-
-              if (oferta[i] < demanda[j]) {
-
-                c2 = oferta[i];
-              }
-              else {
-
-                c2 = demanda[j];
-              }
-
-              if (c2 > c1) {
-
-                c1 = c2;
-                p = i;
-                q = j;
-              }
-            }
-          }
-        }
-      }
-    }
-    if (oferta[p] < demanda[q]) {
-
-      sum += costos[p][q] * oferta[p];
-      demanda[q] -= oferta[p];
-      rf[p] = 1;
-      origenes2--;
-    }
-    else if (oferta[p] > demanda[q]) {
-
-      sum = sum + costos[p][q] * demanda[q];
-      oferta[p] -= demanda[q];
-      cf[q] = 1;
-      rutas2--;
-    }
-    else if (oferta[p] == demanda[q]) {
-
-      sum = sum + costos[p][q] * oferta[p];
-      rf[p] = 1;
-      cf[q] = 1;
-
-      origenes2--;
-      rutas2--;
-    }
-  }
-
-  document.write("<br>");
-  document.write("<br>");
-  document.write("El costo Minimo es: " + sum);
-  console.log(sum);
-
-}
