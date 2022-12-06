@@ -5,7 +5,7 @@ const generarTabla = () => {
   var bodegas = parseInt(document.getElementById('fil').value);
   var fabricas = parseInt(document.getElementById('col').value);
   var main = document.getElementById("mainTabla");
-  var tabla = document.getElementById("tabla")
+  var tabla = document.getElementById("tabla");
   const abc = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 
   if (tabla != null) {
@@ -60,13 +60,11 @@ const generarTabla = () => {
 }
 
 const newTable = () => {
-  // Manipulacion de modal para editar tabla actual.
   var modal = document.getElementById('contenerdormodal');
   modal.style.display = 'flex';
 };
 
 const closeModal = () => {
-  //manipulacion de modal para ocultar display.
   var modal = document.getElementById('contenerdormodal');
   modal.style.display = 'none';
 };
@@ -76,8 +74,8 @@ const equilibrarTabla = () => {
   if(!window.eq){
     var bodegas = parseInt(document.getElementById('fil').value);
     var fabricas = parseInt(document.getElementById('col').value);
-    let sumCol = 0;
-    let sumFil = 0;
+    var sumCol = 0;
+    var sumFil = 0;
     var col = new Array();
     var fil = new Array();
   
@@ -195,7 +193,9 @@ const nwc = (tabla) =>{
       tabla[i][tabla[i].length - 1] -= offer;
 
       for (var z = 0; z < tabla.length; z++) {
+
         tabla[z].splice(0, 1);
+
       }
 
     } else if (dem < offer) {
@@ -212,15 +212,19 @@ const nwc = (tabla) =>{
       res1[j] = es;
       res2[j] = dem;
       tabla.splice(0, 1);
+
       for (var z = 0; z < tabla.length; z++) {
+
         tabla[z].splice(0, 1);
 
       }
     }
+
     j++;
   }
 
   for (var k = 0; k < res.length; k++) {
+
     resultado += res[k];
 
   }

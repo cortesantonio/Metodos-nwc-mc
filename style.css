@@ -5,27 +5,39 @@
     box-sizing: border-box;
 }
 
+
 body {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    height: 100vh;
     align-items: center;
     align-content: center;
     justify-content: center;
-    height: 100vh;
-
 }
 
-header {
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
 
-    width: 100%;
-    padding: 20px;
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+h1 {
     text-align: center;
-    background-color: blue;
+    padding: 5px 20px;
     color: white;
-    margin-bottom: 50px;
-
-}
-
-header h1 {
     font-weight: 100;
+    background-color: rgba(255, 255, 255, 0.215);
+    width: auto;
 
 }
 
@@ -40,15 +52,24 @@ header h1 {
 #resultado,
 #resultado2 {
     text-align: center;
-    font-weight: bold;
+    font-weight: 100;
+    color: white;
     font-size: 1.2rem;
 }
 
 table {
-    background-color: blue;
     margin: 20px auto;
     border-collapse: collapse;
     color: white;
+    font-size: 1.1rem;
+}
+
+table tr:nth-child(2n+1) {
+    background-color: rgba(238, 238, 238, 0.612);
+}
+
+table tr {
+    background-color: rgba(218, 218, 218, 0.612);
 }
 
 table td {
@@ -66,6 +87,8 @@ table input {
     color: white;
     margin: auto;
     text-align: center;
+    font-size: 1.1rem;
+
 }
 
 
@@ -88,8 +111,14 @@ table input:focus {
     margin: auto;
     padding: 20px;
     width: 400px;
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(220, 220, 220, 0.667);
+    color: white;
 
+}
+
+.modal h2 {
+    color: white;
+    font-weight: 100;
 }
 
 .modal label,
@@ -103,7 +132,9 @@ button {
     margin-bottom: 10PX;
     padding: 5px;
     border: none;
-    border-bottom: 1px solid gray;
+    border-bottom: 2px solid white;
+    background-color: transparent;
+    color: white;
     box-sizing: border-box;
 
 }
@@ -112,9 +143,10 @@ button {
     margin: auto;
     width: 50%;
     padding: 5px;
-    background-color: blue;
+    background-color: transparent;
     color: white;
-    border: none;
+    margin-top: 15px;
+    border: 1px solid white;
 
 }
 
@@ -133,16 +165,19 @@ button {
     padding: 4px;
     width: 150px;
     margin: 10px;
-    background-color: rgb(136, 0, 255);
+    background-color: transparent;
     color: white;
-    border: none;
+    border: 1px solid white;
+    cursor: pointer;
+    font-weight: 100;
 }
 
 .contenerdormodal #closeBtn {
     background-color: transparent;
-    color: black;
+    color: rgb(255, 255, 255);
     cursor: pointer;
     font-size: 16px;
+    border: none;
 }
 
 @media screen and (max-width:770px) {

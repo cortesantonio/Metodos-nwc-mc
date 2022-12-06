@@ -2,24 +2,21 @@ const metodoMC = () => {
     const resultadoGUI = document.getElementById('resultado');
   
   
-    var resultado = mc();
-    resultadoGUI.innerText = 'Metodo Minimo Costo: ' + resultado;
+    var res = mc();
+    resultadoGUI.innerText = 'Metodo Minimo Costo: ' + res;
     setTimeout(equilibrarTabla, 50);
   }
 
-function mc() {
-    // Accedemos a las variables globales
+const mc = () => {
     var bodegas = parseInt(document.getElementById('fil').value);
     var fabricas = parseInt(document.getElementById('col').value);
-    console.log(fabricas, bodegas)
 
-    // Declaramos todas las variables a usar
     var costos = [];
-    var demanda = [];
-    var oferta = [];
+    var dem = [];
+    var offer = [];
     var rf = [];
     var cf = [];
-    var sum = 0;
+    var resultado = 0;
     var c2 = 0;
     var c1 = 0;
     var p = 0;
@@ -27,13 +24,9 @@ function mc() {
     var i = 0;
     var j = 0;
 
-    // Esta variable es para usarla como ID para obtener los valores (costos, demandas, ofertas) y va de 1 en 1
-    // Trabajamos los costos como costo1, costo2... Las demandas como demanda1, demanda2... Las ofertas como oferta1, oferta2....
+    
     var idValores = 0;
-
-    // Covertimos el arreglo costos que es 1 dimension a uno de 2 dimenciones
     for (i = 0; i < 5; i++) costos[i] = [];
-    // Accedemos a los costos ingresados anteriormente
     for (i = 0; i < bodegas; i++) {
         for (j = 0; j < fabricas; j++) {
             idValores++;
@@ -41,50 +34,35 @@ function mc() {
         }
     }
 
-    console.log(costos)
 
-
-
-    // Hasta este punto ya vale lo que vale bodegas * fabricas.
-    // Por alguna razon afecta a todo el codigo
-    // Por esa razon aqui volvemos a inicializar en 0 y asi en todo el codigo.
     idValores = 0;
-
-    // Accedemos a las ofertas ingresadas anteriormente
     for (i = 0; i < bodegas; i++) {
         idValores++;
-        oferta[i] = parseInt(document.getElementById("t".concat((i + 1), "_", fabricas + 1)).value);
+        offer[i] = parseInt(document.getElementById("t".concat((i + 1), "_", fabricas + 1)).value);
 
     }
 
-    console.log(oferta)
 
     idValores = 0;
-
-    // Accedemos a las demandas ingresadas anteriormente
     for (i = 0; i < fabricas; i++) {
         idValores++;
-        demanda[i] = parseInt(document.getElementById("t".concat((fabricas + 1), "_", i + 1)).value);
+        dem[i] = parseInt(document.getElementById("t".concat((fabricas + 1), "_", i + 1)).value);
 
     }
-    console.log(demanda)
 
-    // Inicialozamos en 0 estos arreglos
     for (i = 0; i < bodegas; i++) {
 
         rf[i] = 0;
+
     }
 
     for (i = 0; i < fabricas; i++) {
 
         cf[i] = 0;
+
     }
 
-    //Igualamos estos valores para no tocar a los originales
-    var bodegas2 = bodegas;
-    var fabricas2 = fabricas;
-
-    while (bodegas2 > 0 && fabricas2 > 0) {
+    while (bodegas > 0 && fabricas > 0) {
 
         min = 1000;
 
@@ -107,13 +85,13 @@ function mc() {
             }
         }
 
-        if (oferta[p] < demanda[q]) {
+        if (offer[p] < dem[q]) {
 
-            c1 = oferta[p];
+            c1 = offer[p];
         }
         else {
 
-            c1 = demanda[q];
+            c1 = dem[q];
         }
 
         for (i = 0; i < bodegas; i++) {
@@ -126,13 +104,15 @@ function mc() {
 
                         if (min == costos[i][j]) {
 
-                            if (oferta[i] < demanda[j]) {
+                            if (offer[i] < dem[j]) {
 
-                                c2 = oferta[i];
+                                c2 = offer[i];
+
                             }
                             else {
 
-                                c2 = demanda[j];
+                                c2 = dem[j];
+
                             }
 
                             if (c2 > c1) {
@@ -140,35 +120,39 @@ function mc() {
                                 c1 = c2;
                                 p = i;
                                 q = j;
+
                             }
                         }
                     }
                 }
             }
         }
-        if (oferta[p] < demanda[q]) {
+        if (offer[p] < dem[q]) {
 
-            sum += costos[p][q] * oferta[p];
-            demanda[q] -= oferta[p];
+            resultado += costos[p][q] * offer[p];
+            dem[q] -= offer[p];
             rf[p] = 1;
-            bodegas2--;
-        }
-        else if (oferta[p] > demanda[q]) {
+            bodegas--;
 
-            sum = sum + costos[p][q] * demanda[q];
-            oferta[p] -= demanda[q];
+        }
+        else if (offer[p] > dem[q]) {
+
+            resultado = resultado + costos[p][q] * dem[q];
+            offer[p] -= dem[q];
             cf[q] = 1;
-            fabricas2--;
-        }
-        else if (oferta[p] == demanda[q]) {
+            fabricas--;
 
-            sum = sum + costos[p][q] * oferta[p];
+        }
+        else if (offer[p] == dem[q]) {
+
+            resultado = resultado + costos[p][q] * offer[p];
             rf[p] = 1;
             cf[q] = 1;
 
-            bodegas2--;
-            fabricas2--;
+            bodegas--;
+            fabricas--;
+            
         }
     }
-    return sum;
+    return resultado;
 }
